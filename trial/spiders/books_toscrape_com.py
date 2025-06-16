@@ -1,8 +1,11 @@
 import scrapy
+
+from ..constants.bookspider_constants import BookSpiderConstants
+from ..items.bookspider_item import BookSpiderItem
+
+
 # from dotenv import load_dotenv
 
-from ..constants import BookSpiderConstants
-from ..items import BookSpiderItem
 
 # load_dotenv()
 
@@ -23,7 +26,7 @@ class BookSpider(scrapy.Spider):
             "scrapy_zyte_api.Addon": 500,
         }
         items_pipeline = settings['ITEM_PIPELINES']
-        items_pipeline['trial.pipelines.BookSpiderPipeline'] = 300
+        items_pipeline['trial.pipelines.bookspider_pipeline.BookSpiderPipeline'] = 300
 
     def start_requests(self):
         yield scrapy.Request(
@@ -64,9 +67,6 @@ class BookSpider(scrapy.Spider):
     def parse_book_page(self, response):
         book = response.css(BookSpiderConstants.PRODUCT_MAIN_SELECTOR)[0]
         book_item = BookSpiderItem()
-
-        print(self.extract_table_value(response, BookSpiderConstants.AVAILABILITY_HEADER))
-
         book_item[BookSpiderConstants.FIELD_URL] = response.url
         book_item[BookSpiderConstants.FIELD_TITLE] = book.css(BookSpiderConstants.TITLE_SELECTOR).get()
         book_item[BookSpiderConstants.FIELD_PRICE] = book.css(BookSpiderConstants.PRICE_SELECTOR).get()
