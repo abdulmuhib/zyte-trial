@@ -91,5 +91,5 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
-ZYTE_API_KEY = 'faaba9e694fd4e689bfc75198325c9a9'
+ZYTE_API_KEY = 'your_zyte_api_key'
 LOG_LEVEL = "INFO"
